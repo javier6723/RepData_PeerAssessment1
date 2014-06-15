@@ -108,9 +108,13 @@ The mean of the total steps taken per day withot missing is 10765.64 and its med
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+As the  writer is a spanish speaker  the words used running the code were "sábado" and "domingo" their equivalents in english  are "saturday" and "sunday" respectivel.
+The procedure followed was to create a new variable, in the data frame without missing values, called "weekday Weekend" with two values "weekday" and "weekend" assigned according whether the date, using the weekday function,  was a saturday or a sunday then such variable was transform in a factor variable.
+
 
 ```r
 for (i in 1:length(activity_no_missing[, 1])) {
+    # if(!(weekdays(activity_no_missing[i,2]) %in% c('saturday','sunday'))){
     if (!(weekdays(activity_no_missing[i, 2]) %in% c("sábado", "domingo"))) {
         activity_no_missing[i, 4] <- "weekday"
     } else {
@@ -120,15 +124,21 @@ for (i in 1:length(activity_no_missing[, 1])) {
 
 activity_no_missing[, 4] <- as.factor(activity_no_missing[, 4])
 colnames(activity_no_missing)[4] <- "weekdayOrWeekend"
+```
 
+
+To draw the panel plot it was created a new dataset called "averageIntervalWeek" were the steps were averaged according the interval and the weekdayOrWeekend variable,  the graphic system used was ggplot2 .
+
+```r
 averageIntervalWeek <- aggregate(steps ~ interval + weekdayOrWeekend, data = activity_no_missing, 
     mean)
 
-library(lattice)
-with(averageIntervalWeek, xyplot(round(steps) ~ interval | weekdayOrWeekend, 
-    layout = c(1, 2), type = "l", main = "Fig. 4, Activity Patterns Between Weekdays and Weekends"))
+library(ggplot2)
+qplot(interval, round(steps), data = averageIntervalWeek, color = weekdayOrWeekend) + 
+    geom_line() + labs(title = "Fig. 4, Average Activity Patterns Between Weekdays and Weekends") + 
+    labs(y = "Number of steps")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
 
-
+In the plot above it possible to notice that in the first intervals up to around the interval 500 there is little steps, from approximately the interval 500 up to approximately the interval 900 the average steps are greater in weekdays than in weekends, and from the 900 interval up to final the pattern is mainly the opposite, except in little intervals.

@@ -74,8 +74,12 @@ colnames(activity_no_missing)[4]<-"weekdayOrWeekend"
 averageIntervalWeek<-aggregate(steps~interval+weekdayOrWeekend,data=activity_no_missing,mean)
 
 library(lattice)
-with(averageIntervalWeek,xyplot(round(steps)~interval|weekdayOrWeekend,layout=c(1,2),type="l",main="Fig. 4, Activity Patterns Between Weekdays and Weekends"))
+with(averageIntervalWeek,xyplot(round(steps)~interval|weekdayOrWeekend,layout=c(1,2),type="l"
+                                ,main="Fig. 4, Activity Patterns Between Weekdays and Weekends"
+                                ,ylab="Number of steps"))
 
+library(ggplot2)
+qplot(interval,round(steps),data=averageIntervalWeek,color=weekdayOrWeekend)+geom_line()+labs(title="Fig. 4, Activity Patterns Between Weekdays and Weekends")+labs(y ="Number of steps")
 
 
 
