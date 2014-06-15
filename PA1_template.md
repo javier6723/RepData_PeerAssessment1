@@ -62,9 +62,10 @@ the interval 835 contains the maximum number of steps on average across all the 
 
 
 ## Imputing missing values
+For imputing the missing data was to check the number of missing values.
 
 ```r
-# 4.1 total number of missing values in the dataset
+# total number of missing values in the dataset
 sum(is.na(activity))
 ```
 
@@ -72,11 +73,12 @@ sum(is.na(activity))
 ## [1] 2304
 ```
 
+To fill the missing values every value in the variable steps in the data set called "activity" was checked if it was a NA value and in case true the NA was changed by the average number of steps in the 5-minute interval, the new data without the missing values was stored in a dataframe called "activity_no_missing".
+
 ```r
+# filling missindg data
 
-# 4.2 filling missindg data
-
-# 4.3 data set without missing values
+# data set without missing values
 activity_no_missing <- activity
 for (i in 1:length(activity_no_missing[, 1])) {
     if (is.na(activity_no_missing[i, 1])) {
@@ -86,17 +88,17 @@ for (i in 1:length(activity_no_missing[, 1])) {
     }
 }
 
-# 4.4 Histogram total of steps taken per day
+# Histogram total of steps taken per day
 totalsteps2 <- with(activity_no_missing, tapply(steps, as.factor(date), sum))
 # 2.1 Histogram of the total number of steps taken each day
 hist(totalsteps2, main = "Fig. 3, Total Number of Steps Taken Each Day", xlab = "Total steps", 
     col = "red")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 ```r
-# 2.2 the mean and median total number of steps taken per day Mean
+# the mean and median total number of steps taken per day Mean
 mean(totalsteps2, na.rm = T)
 ```
 
@@ -135,9 +137,9 @@ averageIntervalWeek <- aggregate(steps ~ interval + weekdayOrWeekend, data = act
 
 library(lattice)
 with(averageIntervalWeek, xyplot(round(steps) ~ interval | weekdayOrWeekend, 
-    layout = c(1, 2), type = "l"))
+    layout = c(1, 2), type = "l", main = "Fig. 4, Activity Patterns Between Weekdays and Weekends"))
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
