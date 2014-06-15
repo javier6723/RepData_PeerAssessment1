@@ -1,7 +1,8 @@
 # Reproducible Research: Peer Assessment 1
-
+For this assignment the data  was processed using R version 3.1.0 in linux Ubuntu 12.04
 
 ## Loading and preprocessing the data
+The first pass which was taken to load the data in the work directory was to extract them from the zip file and then was read it using the read.csv command to stored them in a object called "activity" and the first preprocessing step was to convert  the variable "date" in to a date type variable.
 
 ```r
 unzip("activity.zip")
@@ -12,12 +13,12 @@ activity$date <- as.Date(activity$date)
 
 
 ## What is mean total number of steps taken per day?
-
+To answer this question was created a vector variable called "totalsteps" in which  every element is the sum  of  the steps taken each day, to do that  was used the tapply function to apply the function sum on the steps by date as factor variable.
 
 ```r
 # total of steps taken per day
 totalsteps <- with(activity, tapply(steps, as.factor(date), sum))
-# 2.1 Histogram of the total number of steps taken each day
+# Histogram of the total number of steps taken each day
 hist(totalsteps, main = "Total Number of Steps Taken Each Day", xlab = "Total steps", 
     col = "blue")
 ```
@@ -25,24 +26,17 @@ hist(totalsteps, main = "Total Number of Steps Taken Each Day", xlab = "Total st
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
 ```r
-# 2.2 the mean and median total number of steps taken per day Mean
-mean(totalsteps, na.rm = T)
-```
-
-```
-## [1] 10766
-```
-
-```r
-# Median
-median(totalsteps, na.rm = T)
-```
-
-```
-## [1] 10765
+# the mean and median total number of steps taken per day Mean of the total
+# steps
+tmean <- mean(totalsteps, na.rm = T)
+# Median of the total steps
+tmedian <- median(totalsteps, na.rm = T)
+# setting inline output options
+options(scipen = 1, digits = 2)
 ```
 
 
+The mean of the total steps taken per day is 10766.19 and its median is 10765
 
 ## What is the average daily activity pattern?
 
@@ -62,7 +56,7 @@ averageInterval[averageInterval$steps == max(averageInterval$steps), ]
 
 ```
 ##     interval steps
-## 104      835 206.2
+## 104      835   206
 ```
 
 
