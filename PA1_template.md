@@ -19,7 +19,7 @@ To answer this question was created a vector variable called "totalsteps" in whi
 # total of steps taken per day
 totalsteps <- with(activity, tapply(steps, as.factor(date), sum))
 # Histogram of the total number of steps taken each day
-hist(totalsteps, main = "Total Number of Steps Taken Each Day", xlab = "Total steps", 
+hist(totalsteps, main = "Fig. 1, Total Number of Steps Taken Each Day", xlab = "Total steps", 
     col = "blue")
 ```
 
@@ -31,35 +31,34 @@ hist(totalsteps, main = "Total Number of Steps Taken Each Day", xlab = "Total st
 tmean <- mean(totalsteps, na.rm = T)
 # Median of the total steps
 tmedian <- median(totalsteps, na.rm = T)
-# setting inline output options
+# setting inline output options to avoid the default scientific notation
 options(scipen = 1, digits = 2)
 ```
 
 
-The mean of the total steps taken per day is 10766.19 and its median is 10765
+The mean of the total steps taken per day is 10766.19 and its median is 10765.
 
 ## What is the average daily activity pattern?
+the following plot shows the daily average number of steps in the data set across the 5-minute intervals in which the measurements were taken.
+to construct this plot a new data frame was create in which the steps were averaged by the 5-minute intervals using the "aggregate" function.
+
 
 ```r
 # time series plot
 averageInterval <- aggregate(steps ~ interval, data = activity, mean)
 with(averageInterval, plot(interval, steps, type = "l"))
-title("Average steps taken across the 5-minutes interval")
+title("Fig. 2, Average steps taken across the 5-minutes interval")
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 ```r
 # maximum number steps
-averageInterval[averageInterval$steps == max(averageInterval$steps), ]
+maxsteps <- averageInterval[averageInterval$steps == max(averageInterval$steps), 
+    ]
 ```
 
-```
-##     interval steps
-## 104      835   206
-```
-
-
+the interval 835 contains the maximum number of steps on average across all the days in the dataset in this case 206.17.
 
 
 ## Imputing missing values
@@ -90,7 +89,7 @@ for (i in 1:length(activity_no_missing[, 1])) {
 # 4.4 Histogram total of steps taken per day
 totalsteps2 <- with(activity_no_missing, tapply(steps, as.factor(date), sum))
 # 2.1 Histogram of the total number of steps taken each day
-hist(totalsteps2, main = "Total Number of Steps Taken Each Day", xlab = "Total steps", 
+hist(totalsteps2, main = "Fig. 3, Total Number of Steps Taken Each Day", xlab = "Total steps", 
     col = "red")
 ```
 

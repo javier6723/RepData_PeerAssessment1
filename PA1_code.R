@@ -29,7 +29,8 @@ averageInterval<-aggregate(steps~interval,data=activity,mean)
 with(averageInterval,plot(interval,steps,type="l"))
 title("Average steps taken across the 5-minutes interval")
 #maximum number steps
-averageInterval[averageInterval$steps==max(averageInterval$steps),]
+maxsteps<-averageInterval[averageInterval$steps==max(averageInterval$steps),]
+
 
 #4) Imputing missing values
 
@@ -73,7 +74,7 @@ colnames(activity_no_missing)[4]<-"weekdayOrWeekend"
 averageIntervalWeek<-aggregate(steps~interval+weekdayOrWeekend,data=activity_no_missing,mean)
 
 library(lattice)
-with(averageIntervalWeek,xyplot(round(steps)~interval|weekdayOrWeekend,layout=c(1,2),type="l"))
+with(averageIntervalWeek,xyplot(round(steps)~interval|weekdayOrWeekend,layout=c(1,2),type="l",main="Fig. 4, Activity Patterns Between Weekdays and Weekends"))
 
 
 
