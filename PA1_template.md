@@ -99,23 +99,12 @@ hist(totalsteps2, main = "Fig. 3, Total Number of Steps Taken Each Day", xlab = 
 
 ```r
 # the mean and median total number of steps taken per day Mean
-mean(totalsteps2, na.rm = T)
-```
-
-```
-## [1] 10766
-```
-
-```r
+tnmean <- mean(totalsteps2, na.rm = T)
 # Median
-median(totalsteps2, na.rm = T)
+tnmedian <- median(totalsteps2, na.rm = T)
 ```
 
-```
-## [1] 10762
-```
-
-
+The mean of the total steps taken per day withot missing is 10765.64 and its median is 10762, These values  are not so different  to those with missing data, but the distribution of total steps increases around the central values.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
